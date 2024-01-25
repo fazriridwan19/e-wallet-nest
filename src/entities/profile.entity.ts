@@ -1,6 +1,13 @@
-import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  OneToMany,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { User } from './user.entity';
 import { CreateProfileDto } from 'src/dtos/create-profile.dto';
+import { Wallet } from './wallet.entity';
 
 @Entity({ name: 'profiles' })
 export class Profile {
@@ -24,6 +31,9 @@ export class Profile {
 
   @OneToOne(() => User, (user) => user.profile, { cascade: true })
   user: User;
+
+  @OneToMany(() => Wallet, (wallet) => wallet.profile, { cascade: true })
+  wallets: Wallet[];
 
   constructor(data: CreateProfileDto) {
     Object.assign(this, data);

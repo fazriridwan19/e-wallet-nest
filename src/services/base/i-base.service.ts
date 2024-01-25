@@ -3,7 +3,7 @@ import { DeepPartial, FindOneOptions, FindOptionsWhere } from 'typeorm';
 import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
 
 export interface IBaseService<T> {
-  findAll(): Promise<T[]>;
+  findAll(user: Profile | undefined): Promise<T[]>;
   findById(
     options: number | FindOneOptions<T> | FindOptionsWhere<T>,
   ): Promise<T>;

@@ -2,11 +2,13 @@ import { BadGatewayException, Injectable } from '@nestjs/common';
 import { IBaseService } from './i-base.service';
 import {
   DeepPartial,
+  FindManyOptions,
   FindOneOptions,
   FindOptionsWhere,
   Repository,
 } from 'typeorm';
 import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
+import { Profile } from 'src/entities/profile.entity';
 
 @Injectable()
 export class BaseService<E> implements IBaseService<E> {
@@ -22,9 +24,11 @@ export class BaseService<E> implements IBaseService<E> {
 
   findById(id: number): Promise<E> {
     try {
-      return this.repository.findOneBy({
-        id,
-      } as unknown as FindOptionsWhere<E>);
+      return this.repository.findOne({
+        where: {
+          id,
+        },
+      } as unknown as FindOneOptions<E>);
     } catch (error) {
       throw new BadGatewayException(error);
     }
@@ -48,6 +52,10 @@ export class BaseService<E> implements IBaseService<E> {
   }
 
   remove(id: number): void {
-    this.repository.delete(id);
+    try {
+      this.repository.delete({ id } as unknown as FindOptionsWhere<E>);
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 }

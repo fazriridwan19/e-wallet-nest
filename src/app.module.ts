@@ -5,6 +5,8 @@ import { Profile } from './entities/profile.entity';
 import { User } from './entities/user.entity';
 import { ProfileModule } from './modules/profile.module';
 import { AuthModule } from './modules/auth.module';
+import { Wallet } from './entities/wallet.entity';
+import { WalletModule } from './modules/wallet.module';
 
 @Module({
   imports: [
@@ -17,11 +19,12 @@ import { AuthModule } from './modules/auth.module';
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
       schema: process.env.DB_SCHEMA,
-      entities: [Profile, User],
+      entities: [Profile, User, Wallet],
       synchronize: true,
     }),
     ProfileModule,
     AuthModule,
+    WalletModule,
   ],
 })
 export class AppModule {}
