@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { CreateProfileDto } from 'src/profile/dto/create-profile.dto';
-import { ProfileService } from 'src/profile/profile.service';
-import { LoginDto } from './dto/login.dto';
+import { CreateProfileDto } from 'src/dtos/create-profile.dto';
+import { ProfileService } from 'src/services/profile.service';
+import { LoginDto } from '../dtos/login.dto';
 import { Profile } from 'src/entities/profile.entity';
 import * as bcrypt from 'bcrypt';
 import { ConfigService } from '@nestjs/config';

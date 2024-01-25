@@ -7,8 +7,10 @@ import {
   IsEmail,
   IsPhoneNumber,
 } from 'class-validator';
+import { Profile } from 'src/entities/profile.entity';
+import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
 
-export class UpdateProfileDto {
+export class UpdateProfileDto implements QueryDeepPartialEntity<Profile> {
   @IsString()
   @MaxLength(50)
   @IsNotEmpty()

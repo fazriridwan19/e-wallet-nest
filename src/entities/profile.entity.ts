@@ -1,12 +1,6 @@
-import {
-  Column,
-  Entity,
-  OneToOne,
-  PrimaryColumn,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { User } from './user.entity';
-import { CreateProfileDto } from 'src/profile/dto/create-profile.dto';
+import { CreateProfileDto } from 'src/dtos/create-profile.dto';
 
 @Entity({ name: 'profiles' })
 export class Profile {

@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
-import { AuthService } from './auth.service';
-import { ProfileModule } from 'src/profile/profile.module';
-import { AuthController } from './auth.controller';
+import { AuthService } from '../services/auth.service';
+import { ProfileModule } from 'src/modules/profile.module';
+import { AuthController } from '../controllers/auth.controller';
 import { JwtModule } from '@nestjs/jwt';
-import { AuthGuard } from './auth.guard';
+import { AuthGuard } from '../services/auth.guard';
 
 @Module({
   imports: [ProfileModule, JwtModule.register({ global: true })],

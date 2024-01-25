@@ -3,8 +3,8 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Profile } from './entities/profile.entity';
 import { User } from './entities/user.entity';
-import { ProfileModule } from './profile/profile.module';
-import { AuthModule } from './auth/auth.module';
+import { ProfileModule } from './modules/profile.module';
+import { AuthModule } from './modules/auth.module';
 
 @Module({
   imports: [
