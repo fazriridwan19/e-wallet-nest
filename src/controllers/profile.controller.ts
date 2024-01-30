@@ -3,7 +3,9 @@ import { ProfileService } from '../services/profile.service';
 import { CurrentUser } from 'src/utils/decorators/current-user.decorator';
 import { Profile } from 'src/entities/profile.entity';
 import { UpdateProfileDto } from 'src/dtos/update-profile.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Profile')
 @Controller('profile')
 export class ProfileController {
   constructor(private profileService: ProfileService) {}

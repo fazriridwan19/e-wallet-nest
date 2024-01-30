@@ -7,9 +7,17 @@ import { ProfileModule } from './modules/profile.module';
 import { AuthModule } from './modules/auth.module';
 import { Wallet } from './entities/wallet.entity';
 import { WalletModule } from './modules/wallet.module';
+import { Transaction } from './entities/transaction.entity';
+import { Status } from './entities/status.entity';
+import { StatusModule } from './modules/status.module';
+import { TransactionModule } from './modules/transaction.module';
+import { TransactionHistory } from './entities/transaction-history.entity';
+import { TransactionHistoryModule } from './modules/transaction-history.module';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
   imports: [
+    ScheduleModule.forRoot(),
     ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRoot({
       type: 'postgres',
@@ -19,12 +27,22 @@ import { WalletModule } from './modules/wallet.module';
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
       schema: process.env.DB_SCHEMA,
-      entities: [Profile, User, Wallet],
+      entities: [
+        Profile,
+        User,
+        Wallet,
+        Transaction,
+        Status,
+        TransactionHistory,
+      ],
       synchronize: true,
     }),
     ProfileModule,
     AuthModule,
     WalletModule,
+    StatusModule,
+    TransactionModule,
+    TransactionHistoryModule,
   ],
 })
 export class AppModule {}

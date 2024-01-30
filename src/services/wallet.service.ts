@@ -17,6 +17,17 @@ export class WalletService extends BaseService<Wallet> {
     return this.save(createWalletDto);
   }
 
+  findByAccount(account: string): Promise<Wallet> {
+    return this.walletRepository.findOne({
+      where: {
+        account,
+      },
+      relations: {
+        profile: true,
+      },
+    });
+  }
+
   findAllWith(user: Profile): Promise<Wallet[]> {
     return this.walletRepository.find({
       where: {
@@ -27,12 +38,17 @@ export class WalletService extends BaseService<Wallet> {
 
   async findByIdWith(user: Profile, id: number) {
     const wallet = await this.walletRepository.findOne({
-      where: { id },
+      where: {
+        id,
+        profile: {
+          id: user.id,
+        },
+      },
       relations: {
         profile: true,
       },
     });
-    if (wallet.profile.id !== user.id)
+    if (!wallet)
       throw new NotFoundException('Wallet for this user is not found');
     return wallet;
   }

@@ -2,13 +2,11 @@ import { BadGatewayException, Injectable } from '@nestjs/common';
 import { IBaseService } from './i-base.service';
 import {
   DeepPartial,
-  FindManyOptions,
   FindOneOptions,
   FindOptionsWhere,
   Repository,
 } from 'typeorm';
 import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
-import { Profile } from 'src/entities/profile.entity';
 
 @Injectable()
 export class BaseService<E> implements IBaseService<E> {
@@ -44,9 +42,13 @@ export class BaseService<E> implements IBaseService<E> {
   }
 
   async update(id: number, data: QueryDeepPartialEntity<E>): Promise<E | null> {
-    const result = await this.repository.update(id, data);
-    if (result.affected && result.affected > 0) {
-      return this.findById(id);
+    try {
+      const result = await this.repository.update(id, data);
+      if (result.affected && result.affected > 0) {
+        return this.findById(id);
+      }
+    } catch (error) {
+      throw new BadGatewayException(error);
     }
     return null;
   }
