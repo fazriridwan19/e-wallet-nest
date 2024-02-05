@@ -1,11 +1,15 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { CreateProfileDto } from 'src/dtos/create-profile.dto';
-import { ProfileService } from 'src/services/profile.service';
-import { LoginDto } from '../dtos/login.dto';
+import {
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
+import { CreateProfileDto } from 'src/entities/dto/create-profile.dto';
+import { LoginDto } from '../entities/dto/login.dto';
 import { Profile } from 'src/entities/profile.entity';
 import * as bcrypt from 'bcrypt';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
+import { ProfileService } from './profile.service';
 
 @Injectable()
 export class AuthService {
@@ -24,14 +28,14 @@ export class AuthService {
       loginDto.username,
     );
     if (!profile)
-      throw new NotFoundException('Username or password is invalid');
+      throw new UnauthorizedException('Username or password is invalid');
     const { user, ...result } = profile;
     const isPasswordValid = await bcrypt.compare(
       loginDto.password,
       user.password,
     );
     if (!isPasswordValid)
-      throw new NotFoundException('Username or password is invalid');
+      throw new UnauthorizedException('Username or password is invalid');
     return this.generateToken(user.profileId, user.username);
   }
 

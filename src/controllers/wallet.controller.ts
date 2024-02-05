@@ -8,12 +8,12 @@ import {
   Put,
 } from '@nestjs/common';
 import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { CreateWalletDto } from 'src/dtos/create-wallet.dto';
-import { ResponseApi } from 'src/dtos/response-api.dto';
-import { UpdateWalletDto } from 'src/dtos/update-wallet.dto';
-import { Profile } from 'src/entities/profile.entity';
-import { WalletService } from 'src/services/wallet.service';
-import { CurrentUser } from 'src/utils/decorators/current-user.decorator';
+import { CreateWalletDto } from '../entities/dto/create-wallet.dto';
+import { ResponseApi } from '../entities/dto/response-api.dto';
+import { UpdateWalletDto } from '../entities/dto/update-wallet.dto';
+import { Profile } from '../entities/profile.entity';
+import { WalletService } from '../services/wallet.service';
+import { CurrentUser } from '../utils/decorators/current-user.decorator';
 
 @ApiTags('Wallet')
 @ApiResponse({ type: ResponseApi })

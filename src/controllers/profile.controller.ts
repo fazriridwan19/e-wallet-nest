@@ -1,8 +1,8 @@
 import { Body, Controller, Delete, Get, Param, Put } from '@nestjs/common';
 import { ProfileService } from '../services/profile.service';
-import { CurrentUser } from 'src/utils/decorators/current-user.decorator';
-import { Profile } from 'src/entities/profile.entity';
-import { UpdateProfileDto } from 'src/dtos/update-profile.dto';
+import { CurrentUser } from '../utils/decorators/current-user.decorator';
+import { Profile } from '../entities/profile.entity';
+import { UpdateProfileDto } from '../entities/dto/update-profile.dto';
 import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Profile')

@@ -14,6 +14,7 @@ import { TransactionModule } from './modules/transaction.module';
 import { TransactionHistory } from './entities/transaction-history.entity';
 import { TransactionHistoryModule } from './modules/transaction-history.module';
 import { ScheduleModule } from '@nestjs/schedule';
+import { UserModule } from './modules/user.module';
 
 @Module({
   imports: [
@@ -38,6 +39,7 @@ import { ScheduleModule } from '@nestjs/schedule';
       synchronize: true,
     }),
     ProfileModule,
+    UserModule,
     AuthModule,
     WalletModule,
     StatusModule,

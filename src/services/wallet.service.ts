@@ -1,10 +1,10 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { BaseService } from './base/base.service';
-import { WalletRepository } from 'src/repositories/wallet.repository';
-import { Wallet } from 'src/entities/wallet.entity';
-import { Profile } from 'src/entities/profile.entity';
-import { CreateWalletDto } from 'src/dtos/create-wallet.dto';
-import { UpdateWalletDto } from 'src/dtos/update-wallet.dto';
+import { WalletRepository } from '../repositories/wallet.repository';
+import { Wallet } from '../entities/wallet.entity';
+import { Profile } from '../entities/profile.entity';
+import { CreateWalletDto } from '../entities/dto/create-wallet.dto';
+import { UpdateWalletDto } from '../entities/dto/update-wallet.dto';
 
 @Injectable()
 export class WalletService extends BaseService<Wallet> {
@@ -13,8 +13,9 @@ export class WalletService extends BaseService<Wallet> {
   }
 
   saveWith(user: Profile, createWalletDto: CreateWalletDto): Promise<Wallet> {
-    createWalletDto.profile = user;
-    return this.save(createWalletDto);
+    const wallet = new Wallet(createWalletDto);
+    wallet.profile = user;
+    return this.save(wallet);
   }
 
   findByAccount(account: string): Promise<Wallet> {

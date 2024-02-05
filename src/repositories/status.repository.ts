@@ -1,5 +1,5 @@
 import { InjectRepository } from '@nestjs/typeorm';
-import { Status } from 'src/entities/status.entity';
+import { Status } from '../entities/status.entity';
 import { Repository } from 'typeorm';
 
 export class StatusRepository extends Repository<Status> {

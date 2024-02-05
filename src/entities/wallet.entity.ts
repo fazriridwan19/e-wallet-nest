@@ -7,7 +7,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Profile } from './profile.entity';
-import { CreateWalletDto } from 'src/dtos/create-wallet.dto';
+import { CreateWalletDto } from './dto/create-wallet.dto';
 import { Transaction } from './transaction.entity';
 
 @Entity({ name: 'wallets' })

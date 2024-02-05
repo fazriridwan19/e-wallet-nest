@@ -1,7 +1,7 @@
 import { Body, Controller, HttpCode, Post } from '@nestjs/common';
-import { CreateProfileDto } from 'src/dtos/create-profile.dto';
+import { CreateProfileDto } from '../entities/dto/create-profile.dto';
 import { AuthService } from '../services/auth.service';
-import { LoginDto } from '../dtos/login.dto';
+import { LoginDto } from '../entities/dto/login.dto';
 import { Public } from '../utils/decorators/public.decorator';
 import { ApiTags } from '@nestjs/swagger';
 

@@ -1,21 +1,23 @@
-import { Transaction } from 'src/entities/transaction.entity';
+import { Transaction } from '../entities/transaction.entity';
 import { BaseService } from './base/base.service';
 import {
   BadRequestException,
   ConflictException,
+  HttpException,
   Injectable,
+  InternalServerErrorException,
   Logger,
 } from '@nestjs/common';
-import { TransactionRepository } from 'src/repositories/transaction.repository';
-import { Profile } from 'src/entities/profile.entity';
-import { CreateTransactionDto } from 'src/dtos/create-transaction.dto';
+import { TransactionRepository } from '../repositories/transaction.repository';
+import { Profile } from '../entities/profile.entity';
+import { CreateTransactionDto } from '../entities/dto/create-transaction.dto';
 import { DataSource } from 'typeorm';
 import { WalletService } from './wallet.service';
 import { StatusService } from './status.service';
-import { TransactionHistory } from 'src/entities/transaction-history.entity';
+import { TransactionHistory } from '../entities/transaction-history.entity';
 import { Cron } from '@nestjs/schedule';
-import { Wallet } from 'src/entities/wallet.entity';
-import { Type } from 'src/entities/type.enum';
+import { Wallet } from '../entities/wallet.entity';
+import { Type } from '../entities/type.enum';
 
 @Injectable()
 export class TransactionService extends BaseService<Transaction> {
@@ -69,15 +71,18 @@ export class TransactionService extends BaseService<Transaction> {
       history.status = inProgresStatus;
       history.transaction = newTransaction;
 
-      await queryRunner.manager.save(newTransaction);
+      const savedTransaction = await queryRunner.manager.save(newTransaction);
       await queryRunner.manager.save(history);
       await queryRunner.manager.save(userWallet);
       await queryRunner.commitTransaction();
 
-      return newTransaction;
+      return savedTransaction;
     } catch (error) {
-      this.logger.error(error);
       await queryRunner.rollbackTransaction();
+      if (error instanceof HttpException) {
+        throw new HttpException(error.message, error.getStatus());
+      }
+      throw new InternalServerErrorException('Something is wrong');
     } finally {
       await queryRunner.release();
     }

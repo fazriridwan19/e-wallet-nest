@@ -1,11 +1,11 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { Profile } from 'src/entities/profile.entity';
 import { DataSource } from 'typeorm';
-import { CreateProfileDto } from '../dtos/create-profile.dto';
-import { User } from 'src/entities/user.entity';
+import { CreateProfileDto } from '../entities/dto/create-profile.dto';
 import * as bcrypt from 'bcrypt';
-import { ProfileRepository } from 'src/repositories/profile.repository';
 import { BaseService } from './base/base.service';
+import { Profile } from '../entities/profile.entity';
+import { User } from '../entities/user.entity';
+import { ProfileRepository } from '../repositories/profile.repository';
 
 @Injectable()
 export class ProfileService extends BaseService<Profile> {

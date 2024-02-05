@@ -1,5 +1,5 @@
 import { InjectRepository } from '@nestjs/typeorm';
-import { TransactionHistory } from 'src/entities/transaction-history.entity';
+import { TransactionHistory } from '../entities/transaction-history.entity';
 import { Repository } from 'typeorm';
 
 export class TransactionHistoryRepository extends Repository<TransactionHistory> {

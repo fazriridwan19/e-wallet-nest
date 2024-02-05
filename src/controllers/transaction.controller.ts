@@ -1,9 +1,9 @@
 import { Body, Controller, Post } from '@nestjs/common';
-import { CreateTransactionDto } from 'src/dtos/create-transaction.dto';
-import { ResponseApi } from 'src/dtos/response-api.dto';
-import { Profile } from 'src/entities/profile.entity';
-import { TransactionService } from 'src/services/transaction.service';
-import { CurrentUser } from 'src/utils/decorators/current-user.decorator';
+import { CreateTransactionDto } from '../entities/dto/create-transaction.dto';
+import { ResponseApi } from '../entities/dto/response-api.dto';
+import { Profile } from '../entities/profile.entity';
+import { TransactionService } from '../services/transaction.service';
+import { CurrentUser } from '../utils/decorators/current-user.decorator';
 
 @Controller('transaction')
 export class TransactionController {
@@ -14,10 +14,10 @@ export class TransactionController {
     @CurrentUser() user: Profile,
     @Body() createTransactionDto: CreateTransactionDto,
   ) {
-    return new ResponseApi(
-      201,
-      'Success',
-      await this.transactionService.create(user, createTransactionDto),
+    const result = await this.transactionService.create(
+      user,
+      createTransactionDto,
     );
+    return new ResponseApi(201, 'Success', result);
   }
 }

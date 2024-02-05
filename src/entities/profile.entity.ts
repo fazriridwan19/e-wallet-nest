@@ -6,7 +6,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { User } from './user.entity';
-import { CreateProfileDto } from 'src/dtos/create-profile.dto';
+import { CreateProfileDto } from './dto/create-profile.dto';
 import { Wallet } from './wallet.entity';
 
 @Entity({ name: 'profiles' })

@@ -1,6 +1,6 @@
 import { Status } from 'src/entities/status.entity';
 import { BaseService } from './base/base.service';
-import { StatusRepository } from 'src/repositories/status.repository';
+import { StatusRepository } from '../repositories/status.repository';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()

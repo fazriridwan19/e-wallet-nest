@@ -9,7 +9,7 @@ import {
 import { Wallet } from './wallet.entity';
 import { Status } from './status.entity';
 import { TransactionHistory } from './transaction-history.entity';
-import { CreateTransactionDto } from 'src/dtos/create-transaction.dto';
+import { CreateTransactionDto } from './dto/create-transaction.dto';
 
 @Entity({ name: 'transactions' })
 export class Transaction {
