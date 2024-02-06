@@ -54,8 +54,7 @@ export class ProfileService extends BaseService<Profile> {
       const { user, ...result } = await this.findById(savedProfile.id);
       return result;
     } catch (error) {
-      console.log(error);
-      throw new BadRequestException(error.detail);
+      return new BadRequestException(error.detail);
     }
   }
 }
