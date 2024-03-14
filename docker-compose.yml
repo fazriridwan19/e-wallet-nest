@@ -1,12 +1,30 @@
 version: '3'
 services:
-  db:
+  nestapp:
+    container_name: ewallet_container
+    image: 72f2f0670b44b1f15e7465ee5e69cf6739aef534db7a95d5316ac40d98de8bd0
+    depends_on:
+      - postgresdb
+    build: .
+    ports:
+      - '3210:3000'
+    environment:
+      DB_HOST: postgresdb
+      DB_PORT: 5432
+      DB_USERNAME: postgres
+      DB_PASSWORD: postgres
+      DB_NAME: e_wallet
+      DB_SCHEMA: public
+      SECRET_TOKEN: fully-secret
+    networks:
+      - projectwallet
+  postgresdb:
     container_name: postgresdb
     image: postgres
     volumes:
       - psqldb:/var/lib/postgresql
     ports:
-      - '5432:5432'
+      - '5433:5432'
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
